@@ -1,3 +1,4 @@
-from django.shortcuts import render
+from news_app.tasks import update_news_data
 
-# Create your views here.
+
+update_news_data.delay()

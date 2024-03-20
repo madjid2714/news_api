@@ -10,8 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
+from dotenv import load_dotenv
 import os
+load_dotenv()
+
+from pathlib import Path
+
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w@%q$)oa4c&yd)fsc^8vndf4hd0u*ccurf4l0j)aje7tetj5hs'
-
+# SECRET_KEY = 'django-insecure-w@%q$)oa4c&yd)fsc^8vndf4hd0u*ccurf4l0j)aje7tetj5hs'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -34,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_celery_beat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -133,5 +139,28 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
 
-NEWS_API_KEY = os.environ['NEWS_API_KEY']
+# Configure Redis as the Cache Backend
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    }
+}
+
+# Configure Celery to Use Redis
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+# Schedule Celery Task
+CELERY_BEAT_SCHEDULE = {
+    'update-news-data': {
+        'task': 'news_app.tasks.update_news_data',
+        'schedule': crontab(minute=0, hour='*/2')  # Run every 2 hours
+    },
+}
+
