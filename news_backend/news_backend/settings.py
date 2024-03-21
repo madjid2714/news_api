@@ -39,7 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django_celery_beat',
+    # 'django_celery_beat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'news_app',
     'rest_framework',
+    'debug_toolbar',  # <-- Updated!
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'debug_toolbar.middleware.DebugToolbarMiddleware',  # <-- Updated!
 ]
 
 ROOT_URLCONF = 'news_backend.urls'
@@ -160,7 +162,9 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 CELERY_BEAT_SCHEDULE = {
     'update-news-data': {
         'task': 'news_app.tasks.update_news_data',
-        'schedule': crontab(minute=0, hour='*/2')  # Run every 2 hours
+        'schedule': crontab(minute='*')  # Run every 2 hours
     },
 }
 
+if DEBUG:
+    INTERNAL_IPS = ["127.0.0.1"]  # <-- Updated!

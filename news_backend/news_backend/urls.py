@@ -20,6 +20,6 @@ from news_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path("", views.update, name='update'),
     path('api/', include('news_app.api.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
