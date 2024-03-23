@@ -9,5 +9,4 @@ class NewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewsArticle
         fields = '__all__'
-        # fields = ['category']
         

@@ -1,17 +1,40 @@
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from django.http import JsonResponse
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from news_app.models import NewsArticle
 from rest_framework import status
 from django.core.cache import cache
-from django.views.decorators.cache import cache_page
 from news_app.serializers import NewsSerializer
-import redis
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from drf_spectacular.utils import extend_schema, OpenApiParameter 
 
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+@extend_schema(responses=NewsSerializer,
+               description='''Endpoint to get all News articles.''')
+@api_view(['GET'])
+def get_all_news(request):
+    try:
+        # Attempt to retrieve cached data
+        cached_data = cache.get('all_news')
+        # check if data is in the cache
+        if cached_data:
+            return Response({'success': cached_data}, status=status.HTTP_200_OK)
+        
+        # If data is not cached, fetch it from the database
+        news = NewsArticle.objects.all()
+        if news:
+            serializer = NewsSerializer(news, many=True)
+            result = serializer.data
+            # Cache the fetched data
+            cache.set('all_news', result, timeout=3600) # Cache for 1 hour 
+            return Response({'success': result}, status=status.HTTP_200_OK)
+        else:
+            return Response({'success': 'There are no articles available at the moment'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': f'Failed to retrieve news articles. {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 #################################################
 ############### Get data by Category ###########
@@ -60,7 +83,7 @@ def get_news_by_category(request):
                          required=True, type=str),
     ],
     description=''' Endpoint to get News by country \n  
-                    example : dz , us , ae , gb ''')
+                    example : us , ae , gb ''')
 @api_view(['GET'])
 def get_news_by_country(request):
     try:
@@ -98,7 +121,7 @@ def get_news_by_country(request):
                          required=True, type=str),
     ],
     description=''' Endpoint to get News by source \n  
-                    example : MacRumors, IGN, CNET,CNN, The Wall Street Journal, YouTube ,ESPN, BBC News, Google News ,CBS News ,The Hill, MSNBC , RTL Nieuws , TechCrunch ,Fox News , Bloomberg, TechCrunch, Al Jazeera English ''')
+                    example : MacRumors, IGN, CNET, CNN, The Wall Street Journal, YouTube ,ESPN, BBC News, Google News ,CBS News ,The Hill, MSNBC , RTL Nieuws , TechCrunch ,Fox News , Bloomberg, TechCrunch, Al Jazeera English ''')
 @api_view(['GET'])
 def get_news_by_source(request):
     try:

@@ -18,7 +18,13 @@ class NewsArticle(models.Model):
     source = models.CharField(null=True, blank=True, max_length=100, verbose_name="Source")
 
 
+
     class Meta:
+        indexes = [
+            models.Index(fields=['category']), # <---Indexing to fast retrieve data by category  
+            models.Index(fields=['country']),# <---Indexing to fast retrieve data by source  
+            models.Index(fields=['source']),# <---Indexing to fast retrieve data by source  
+        ]
         verbose_name_plural = "News"
     def __str__(self):
         return self.title
