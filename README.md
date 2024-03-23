@@ -100,6 +100,11 @@ start the celery worker :
 $ celery -A news_backend worker --loglevel=info
 $ celery -A news_backend beat --loglevel=info
 ```
+
+Generate schema.yml  for API documentation :
+```shell
+$ python manage.py  spectacular --color --file schema.yml
+```
 run server and test the app:
 ```shell
 $ python3 manage.py runserver
@@ -107,7 +112,11 @@ $ python3 manage.py runserver
 now you can acces to http://localhost:8000/admin/  to see the news
 
 # Eendpoints
-country_retrieve example : http://localhost:8000/api/category/?country=us
-category_retrieve example : http://localhost:8000/api/category/?category=technology
-source_retrieve example : http://localhost:8000/api/source/?source=IGN
+country_retrieve example : http://localhost:8000/api/category/?country=us <br>
+category_retrieve example : http://localhost:8000/api/category/?category=technology <br>
+source_retrieve example : http://localhost:8000/api/source/?source=IGN <br>
+
+# API documentation:
+Swagger ui : http://localhost:8000/api/docs <br>
+Redoc ui : http://localhost:8000/api/redoc <br>
 
