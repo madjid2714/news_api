@@ -1,6 +1,7 @@
 from django.db import models
+import architect
 
-
+@architect.install('partition', type='range', subtype='integer', constraint='10', column='id')
 class NewsArticle(models.Model):
 
     """ news article class to store informations in the database """
