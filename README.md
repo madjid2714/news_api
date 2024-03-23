@@ -39,7 +39,7 @@ Clone project
 $ https://github.com/madjid2714/news_api.git
 ```
 ```shell
-$ cd django_blog
+$ cd news_api
 ```
 install redis 
 ```shell
