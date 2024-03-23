@@ -68,7 +68,7 @@ ALTER ROLE admin SET client_encoding TO 'utf8';
 ALTER ROLE admin SET default_transaction_isolation TO 'read committed';
 ALTER ROLE admin SET timezone TO 'UTC';
 ```
-COnfigure database in django settings.py
+Configure database in django settings.py
 ```python
 # Database
 DATABASES = {
@@ -93,7 +93,7 @@ $ python3 manage.py createsuperuser
 ```
 Create the partitions using the command:
 ```shell
-$export DJANGO_SETTINGS_MODULE=news_backend.settings
+$ export DJANGO_SETTINGS_MODULE=news_backend.settings
 $ architect partition --module news_app.models
 architect partition: result: successfully (re)configured the database for the following models: NewsArticle 
 ```
