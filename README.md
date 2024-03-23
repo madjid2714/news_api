@@ -1,10 +1,10 @@
-# news_api
+# News_api
 Latest News Dashboard using Django, Django REST, Postgresql and Angular with Database Optimization
 # Description
 a web application with Django and Django REST framework as the backend to fetch
 news from the News API, incorporating database optimizations, and display it on a front-end
 built with Angular.
-# structure
+# Structure
 ```
 news_web_app/
 |-- news_backend/         # Django Backend
