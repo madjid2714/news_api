@@ -110,7 +110,7 @@ $ python manage.py  spectacular --color --file schema.yml
 Go the newsapi.org/ and get NEWS_API_KEY and put the key in the .env file :
 ```env
 # example
-NEWS_API_KEY = '0ca3a3d9adhhjhtgfh76559b4f80c2fcba'
+NEWS_API_KEY = '0ca3a3d9ad1e4fda96b59b4f80c2fcba'
 ```
 run server and test the app:
 ```shell
@@ -118,7 +118,7 @@ $ python3 manage.py runserver
 ```
 now you can acces to http://localhost:8000/admin/  to see the news
 
-# Eendpoints
+# Endpoints
 List all news example : http://localhost:8000/api/all <br>
 country_retrieve example : http://localhost:8000/api/category/?country=us <br>
 category_retrieve example : http://localhost:8000/api/category/?category=technology <br>
