@@ -43,7 +43,7 @@ def get_news_by_category(request):
             serializer = NewsSerializer(news, many=True)
             result = serializer.data
             # Cache the fetched data
-            cache.set(f'news_by_category_{category}', result, timeout=30) # Cache for 1 hour 
+            cache.set(f'news_by_category_{category}', result, timeout=3600) # Cache for 1 hour 
             return Response({'success': result}, status=status.HTTP_200_OK)
         else:
             return Response({'success': 'There is no articles in this category at the moment'}, status=status.HTTP_200_OK)
@@ -81,7 +81,7 @@ def get_news_by_country(request):
             serializer = NewsSerializer(news, many=True)
             result = serializer.data
             # Cache the fetched data
-            cache.set(f'news_by_country_{country}', result, timeout=30) # Cache for 1 hour 
+            cache.set(f'news_by_country_{country}', result, timeout=3600) # Cache for 1 hour 
             return Response({'success': result}, status=status.HTTP_200_OK)
         else:
             return Response({'success': 'There is no articles for this country at the moment'}, status=status.HTTP_200_OK)
@@ -119,7 +119,7 @@ def get_news_by_source(request):
             serializer = NewsSerializer(news, many=True)
             result = serializer.data
             # Cache the fetched data
-            cache.set(f'news_by_source_{source}', result, timeout=30) # Cache for 1 hour 
+            cache.set(f'news_by_source_{source}', result, timeout=3600) # Cache for 1 hour 
             return Response({'success': result}, status=status.HTTP_200_OK)
         else:
             return Response({'success': 'There is no articles for this source at the moment'}, status=status.HTTP_200_OK)

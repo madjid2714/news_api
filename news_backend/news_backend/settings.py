@@ -163,7 +163,8 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 CELERY_BEAT_SCHEDULE = {
     'update-news-data': {
         'task': 'news_app.tasks.update_news_data',
-        'schedule': crontab(minute='*')  # Run every 2 hours
+        # 'schedule': crontab(minute='*')  # Run every minute
+        'schedule': crontab(hour='*/2'),  # Run every 2 hours
     },
 }
 
@@ -179,8 +180,6 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'News from the News API,',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    # 'SCHEMA_PATH_FUNC': 'news_app.api.urls.api_schema_url',
-
     # "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"]
 
 }

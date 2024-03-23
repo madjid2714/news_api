@@ -8,10 +8,10 @@ logger = logging.getLogger(__name__)
 @shared_task
 def update_news_data():
     logger.info("Updating news data...")
-    # categories = ['business', 'entertainment', 'health', 'science', 'sports', 'technology']
-    # countries = ['us', 'gb', 'ae', 'dz']
-    categories = ['technology']
-    countries = ['us']
+    categories = ['business', 'entertainment', 'health', 'science', 'sports', 'technology']
+    countries = ['ae', 'us', 'gb']
+    # categories = ['technology']
+    # countries = ['us']
     for category in categories:
         for country in countries:
             newsapi = NewsApiClient(api_key=settings.NEWS_API_KEY)
