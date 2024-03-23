@@ -19,7 +19,7 @@ news_web_app/
 |   |   |-- apps.py
 |   |   |-- models.py
 |   |   |-- serializers.py
-|   |   |-- tasks.py      #  Celery task that fetches news data from the News API and updates your Django model
+|   |   |-- tasks.py   #  Celery task that fetches news data from the News API and updates Django model
 |   |   |-- urls.py
 |   |   |-- views.py
 |   |-- news_web_app/     # Django Project
