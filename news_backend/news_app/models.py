@@ -11,13 +11,10 @@ class NewsArticle(models.Model):
     content = models.TextField(null=True,blank=True, verbose_name="Content")
     url = models.URLField(max_length=3000)
     url_to_image = models.URLField(max_length=3000, null=True, blank=True) 
-    # image = models.ImageField(null=True, blank=True, upload_to='image/')
     published_at = models.DateTimeField(auto_now_add=True)
     category = models.CharField(max_length=50, verbose_name="Category")
     country = models.CharField(blank=True,max_length=50, verbose_name="Country")
     source = models.CharField(null=True, blank=True, max_length=100, verbose_name="Source")
-    # unique_identifier = models.CharField(max_length=100, unique=True)
-
 
 
     class Meta:

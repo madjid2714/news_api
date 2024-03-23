@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'news_app',
     'rest_framework',
+    'drf_spectacular',
     'debug_toolbar',  # <-- Updated!
 ]
 
@@ -168,3 +169,18 @@ CELERY_BEAT_SCHEDULE = {
 
 if DEBUG:
     INTERNAL_IPS = ["127.0.0.1"]  # <-- Updated!
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'News Api',
+    'DESCRIPTION': 'News from the News API,',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # 'SCHEMA_PATH_FUNC': 'news_app.api.urls.api_schema_url',
+
+    # "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"]
+
+}

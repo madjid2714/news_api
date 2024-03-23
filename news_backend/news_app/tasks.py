@@ -1,20 +1,15 @@
 from celery import shared_task
-import requests
 from news_app.models import NewsArticle
 from django.conf import settings
-# from cacheops import invalidate_all
 from newsapi import NewsApiClient
-
 import logging
-
 logger = logging.getLogger(__name__)
 
 @shared_task
 def update_news_data():
-    print(f" === im in the update data === ")
     logger.info("Updating news data...")
     # categories = ['business', 'entertainment', 'health', 'science', 'sports', 'technology']
-    # countries = ['us', 'gb', 'ae', 'dz', 'in']
+    # countries = ['us', 'gb', 'ae', 'dz']
     categories = ['technology']
     countries = ['us']
     for category in categories:
@@ -41,6 +36,5 @@ def update_news_data():
                         "country": country,
                     }
                 )
-    # Invalidate cache after updating Django model
-    # invalidate_all()
+
     logger.info("News data updated successfully.")

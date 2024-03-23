@@ -1,11 +1,13 @@
 from rest_framework import serializers
-from .models import News
+from .models import NewsArticle
 
 
-class NewsSerializer(serializers.Serializer):
+class NewsSerializer(serializers.ModelSerializer):
 
     """ Serializer Django REST Framework for the news model"""
+
     class Meta:
-        model = News
+        model = NewsArticle
         fields = '__all__'
+        # fields = ['category']
         
