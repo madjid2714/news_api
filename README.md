@@ -34,7 +34,7 @@ news_web_app/
 # Setup
 Clone project
 ```shell
-$ git@github.com:madjid2714/django_blog.git
+$ https://github.com/madjid2714/news_api.git
 ```
 ```shell
 $ cd django_blog
