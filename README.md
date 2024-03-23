@@ -1,10 +1,10 @@
-# news_api
+# News_api
 Latest News Dashboard using Django, Django REST, Postgresql and Angular with Database Optimization
 # Description
 a web application with Django and Django REST framework as the backend to fetch
 news from the News API, incorporating database optimizations, and display it on a front-end
 built with Angular.
-# structure
+# Structure
 ```
 news_web_app/
 |-- news_backend/         # Django Backend
@@ -19,7 +19,7 @@ news_web_app/
 |   |   |-- apps.py
 |   |   |-- models.py
 |   |   |-- serializers.py
-|   |   |-- tasks.py      #  Celery task that fetches news data from the News API and updates your Django model
+|   |   |-- tasks.py   #  Celery task that fetches news data from the News API and updates Django model
 |   |   |-- urls.py
 |   |   |-- views.py
 |   |-- news_web_app/     # Django Project
@@ -39,7 +39,7 @@ Clone project
 $ https://github.com/madjid2714/news_api.git
 ```
 ```shell
-$ cd django_blog
+$ cd news_api
 ```
 install redis 
 ```shell
@@ -68,7 +68,7 @@ ALTER ROLE admin SET client_encoding TO 'utf8';
 ALTER ROLE admin SET default_transaction_isolation TO 'read committed';
 ALTER ROLE admin SET timezone TO 'UTC';
 ```
-COnfigure database in django settings.py
+Configure database in django settings.py
 ```python
 # Database
 DATABASES = {
@@ -93,7 +93,7 @@ $ python3 manage.py createsuperuser
 ```
 Create the partitions using the command:
 ```shell
-$export DJANGO_SETTINGS_MODULE=news_backend.settings
+$ export DJANGO_SETTINGS_MODULE=news_backend.settings
 $ architect partition --module news_app.models
 architect partition: result: successfully (re)configured the database for the following models: NewsArticle 
 ```
@@ -110,7 +110,7 @@ $ python manage.py  spectacular --color --file schema.yml
 Go the newsapi.org/ and get NEWS_API_KEY and put the key in the .env file :
 ```env
 # example
-NEWS_API_KEY = '0ca3a3d9adhhjhtgfh76559b4f80c2fcba'
+NEWS_API_KEY = '0ca3a3d9ad1e4fda96b59b4f80c2fcba'
 ```
 run server and test the app:
 ```shell
@@ -118,7 +118,7 @@ $ python3 manage.py runserver
 ```
 now you can acces to http://localhost:8000/admin/  to see the news
 
-# Eendpoints
+# Endpoints
 List all news example : http://localhost:8000/api/all <br>
 country_retrieve example : http://localhost:8000/api/category/?country=us <br>
 category_retrieve example : http://localhost:8000/api/category/?category=technology <br>
