@@ -87,7 +87,7 @@ def get_news_by_category(request):
 @api_view(['GET'])
 def get_news_by_country(request):
     try:
-        countries = ['us', 'ae', 'dz']
+        countries = ['us', 'ae', 'gb']
         country = request.query_params.get('country')  
         if country not in countries:
             return Response({'error': f'The country {country} does not exist'}, status=status.HTTP_400_BAD_REQUEST)
