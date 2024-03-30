@@ -32,7 +32,51 @@ news_web_app/
 |-- manage.py
 |-- schema.yml   # The genrated schema for Api documentation
 ```
-# Setup
+# Docker Setup (Optional) ![alt text](https://camo.githubusercontent.com/fc8c91a1c1a2e8b4b0bf5f4ddbaec59d1f1159770294459ad8263b077fafb1bc/68747470733a2f2f736b696c6c69636f6e732e6465762f69636f6e733f693d646f636b6572)
+If you want to use Docker to run this project, you need to do the following steps:<br>
+
+- Clone project
+```shell
+$ https://github.com/madjid2714/news_api.git
+```
+```shell
+$ cd news_api
+```
+- First, you need to modify the **.env** file and add the **NEWS_API_KEY**, **PostgreSQL** credentials, and the initial **Django superuser**:
+
+```env
+# example
+NEWS_API_KEY = 'Your news API goes here bring it from newsapi.org'
+
+# PostgreSQL credentials
+POSTGRES_DB=your_db_name 
+POSTGRES_USER=your_db_user
+POSTGRES_PASSWORD=your_db_password
+POSTGRES_HOST=your_db_host
+
+# Django superuser credentials
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_EMAIL=admin@example.com
+DJANGO_SUPERUSER_PASSWORD=adminpassword
+```
+- Run ``docker compose build``
+- Run ``docker compose up``
+- Endpoints <br>
+    List all news example : http://localhost:8000/api/all <br>
+    country_retrieve  : http://localhost:8000/api/category/?country=us <br>
+    category_retrieve  : http://localhost:8000/api/category/?category=technology <br>
+    source_retrieve  : http://localhost:8000/api/source/?source=IGN <br>
+
+- API documentation: <br>
+    Swagger ui : http://localhost:8000/api/docs <br>
+    Redoc ui : http://localhost:8000/api/redoc 
+
+To stop the container, run ``docker compose stop`` <br>
+To restart the container, run ``docker compose start`` <br>
+To delete the container, run ``docker compose down`` <br>
+
+
+# Setup (in your host machine)
 Clone project
 ```shell
 $ https://github.com/madjid2714/news_api.git
@@ -109,7 +153,7 @@ $ python manage.py  spectacular --color --file schema.yml
 Go the newsapi.org/ and get NEWS_API_KEY and put the key in the .env file :
 ```env
 # example
-NEWS_API_KEY = '0ca3a3d9ad1e4fda96b59b4f80c2fcba'
+NEWS_API_KEY = 'Your news API goes here bring it from newsapi.org'
 ```
 run server and test the app:
 ```shell
