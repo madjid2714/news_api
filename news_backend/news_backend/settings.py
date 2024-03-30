@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'news_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'newsdb',
-        'USER': 'postgres',
-        'PASSWORD':'postgres',
-        'HOST': 'localhost',
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD':os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT':'5432',
     }
 }
@@ -147,22 +147,26 @@ NEWS_API_KEY = os.environ.get('NEWS_API_KEY')
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost:6379/1',
+        'LOCATION': f"redis://{os.environ.get('REDIS_URl', 'localhost')}:6379/1",
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
     }
 }
 
-# Configure Celery to Use Redis
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+# Configure Celery to Use Redis in normal mode
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+# Configure Celery to Use Redis in case of Docker
+CELERY_BROKER_URL = f"redis://{os.environ.get('REDIS_URl', 'localhost')}:6379/0"
+CELERY_RESULT_BACKEND = f"redis://{os.environ.get('REDIS_URl', 'localhost')}:6379/0"
 
 # Schedule Celery Task
 CELERY_BEAT_SCHEDULE = {
     'update-news-data': {
         'task': 'news_app.tasks.update_news_data',
-        'schedule': crontab(hour='*/2'),  # Run every 2 hours
+        'schedule': crontab(minute='*/1'),  # Run every 2 hours
     },
 }
 
