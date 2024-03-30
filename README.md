@@ -1,9 +1,8 @@
 # News_api
-Latest News Dashboard using Django, Django REST, Postgresql and Angular with Database Optimization
+News web api using Django, Django REST, Postgresql and Angular with Database Optimization.
 # Description
 a web application with Django and Django REST framework as the backend to fetch
-news from the News API, incorporating database optimizations, and display it on a front-end
-built with Angular.
+news from the News API, incorporating database optimizations.
 # Structure
 ```
 news_web_app/
@@ -116,13 +115,12 @@ run server and test the app:
 ```shell
 $ python3 manage.py runserver
 ```
-now you can acces to http://localhost:8000/admin/  to see the news
 
 # Endpoints
 List all news example : http://localhost:8000/api/all <br>
-country_retrieve example : http://localhost:8000/api/category/?country=us <br>
-category_retrieve example : http://localhost:8000/api/category/?category=technology <br>
-source_retrieve example : http://localhost:8000/api/source/?source=IGN <br>
+country_retrieve  : http://localhost:8000/api/category/?country=us <br>
+category_retrieve  : http://localhost:8000/api/category/?category=technology <br>
+source_retrieve  : http://localhost:8000/api/source/?source=IGN <br>
 
 # API documentation:
 Swagger ui : http://localhost:8000/api/docs <br>
