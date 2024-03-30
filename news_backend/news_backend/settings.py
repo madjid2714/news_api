@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD':os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': os.environ.get('POSTGRES_HOST'),
+        'HOST': os.environ.get('POSTGRES_HOST','localhost'),
         'PORT':'5432',
     }
 }
@@ -159,8 +159,8 @@ CACHES = {
 # CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 # Configure Celery to Use Redis in case of Docker
-CELERY_BROKER_URL = f"redis://{os.environ.get('REDIS_URl', 'localhost')}:6379/0"
-CELERY_RESULT_BACKEND = f"redis://{os.environ.get('REDIS_URl', 'localhost')}:6379/0"
+CELERY_BROKER_URL = f"redis://{os.environ.get('BROKER_URL', 'localhost')}:6379/0"
+CELERY_RESULT_BACKEND = f"redis://{os.environ.get('BROKER_URL', 'localhost')}:6379/0"
 
 # Schedule Celery Task
 CELERY_BEAT_SCHEDULE = {

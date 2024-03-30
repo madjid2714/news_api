@@ -18,7 +18,7 @@ WORKDIR /usr/src/app/
 RUN chown -R root:root /usr/src/app
 
 # Set permissions for the directory
-RUN chmod -R 755 /usr/src/app
+# RUN chmod -R 755 /usr/src/app
 
 COPY requirements.txt requirements.txt
 

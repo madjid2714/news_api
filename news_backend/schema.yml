@@ -1,0 +1,158 @@
+openapi: 3.0.3
+info:
+  title: News Api
+  version: 1.0.0
+  description: News from the News API,
+paths:
+  /api/all/:
+    get:
+      operationId: all_retrieve
+      description: Endpoint to get all News articles.
+      tags:
+      - all
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: ''
+  /api/category/:
+    get:
+      operationId: category_retrieve
+      description: "Endpoint to get News by category \n \n                    example\
+        \ : business, entertainment, health, science, sports, technology "
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+        description: <description>
+        required: true
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: ''
+  /api/country/:
+    get:
+      operationId: country_retrieve
+      description: " Endpoint to get News by country \n  \n                    example\
+        \ : us , ae , gb "
+      parameters:
+      - in: query
+        name: country
+        schema:
+          type: string
+        description: <description>
+        required: true
+      tags:
+      - country
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: ''
+  /api/source/:
+    get:
+      operationId: source_retrieve
+      description: " Endpoint to get News by source \n  \n                    example\
+        \ : MacRumors, IGN, CNET, CNN, The Wall Street Journal, YouTube ,ESPN, BBC\
+        \ News, Google News ,CBS News ,The Hill, MSNBC , RTL Nieuws , TechCrunch ,Fox\
+        \ News , Bloomberg, TechCrunch, Al Jazeera English "
+      parameters:
+      - in: query
+        name: source
+        schema:
+          type: string
+        description: <description>
+        required: true
+      tags:
+      - source
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/News'
+          description: ''
+components:
+  schemas:
+    News:
+      type: object
+      description: Serializer Django REST Framework for the news model
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        author:
+          type: string
+          nullable: true
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+        content:
+          type: string
+          nullable: true
+        url:
+          type: string
+          format: uri
+          maxLength: 3000
+        url_to_image:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 3000
+        published_at:
+          type: string
+          format: date-time
+          readOnly: true
+        category:
+          type: string
+          maxLength: 200
+        country:
+          type: string
+          maxLength: 50
+        source:
+          type: string
+          nullable: true
+          maxLength: 200
+      required:
+      - category
+      - id
+      - published_at
+      - title
+      - url
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

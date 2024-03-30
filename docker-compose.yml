@@ -2,16 +2,15 @@ version: '3'
 
 services:
   api:
+    container_name: api
     build:
       context: .
       dockerfile: Dockerfile
     command: [ "bash", "-c", "/usr/local/bin/init.sh"]
     volumes:
       - "./news_backend/:/usr/src/app/"
-    environment:
-      REDIS_URL: ${REDIS_URL}
-      BROKER_URL: ${BROKER_URL}
-    env_file: ./news_backend/.env
+    env_file: 
+      - ./news_backend/.env
     ports:
       - "8000:8000"
     depends_on:
@@ -29,23 +28,22 @@ services:
       - ./data:/var/lib/postgresql/data
     env_file:
       - ./news_backend/.env
-    environment:
-     -POSTGRES_DB: ${POSTGRES_DB}
-     -POSTGRES_USER: ${POSTGRES_USER}
-     -POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-     -POSTGRES_HOST: ${POSTGRES_HOST}
+
   redis:
     image: redis
+    container_name: redis
 
   celery:
+    container_name: celery
     build:
       context: .
       dockerfile: Dockerfile
     command: celery -A news_backend worker --loglevel=info
-    env_file: ./news_backend/.env
+    env_file: 
+      - ./news_backend/.env
     environment:
-      REDIS_URL: ${REDIS_URL}
-      BROKER_URL: ${BROKER_URL}
+     - REDIS_URL
+     - BROKER_URL
     volumes:
       - "./news_backend/:/usr/src/app/"
     depends_on:
@@ -53,16 +51,18 @@ services:
       - redis
 
   celery-beat:
+    container_name: celery-beat
     build:
       context: .
       dockerfile: Dockerfile
     command: celery -A news_backend beat --loglevel=info
     volumes:
       - "./news_backend/:/usr/src/app/"
-    env_file: ./news_backend/.env
+    env_file: 
+      - ./news_backend/.env
     environment:
-      REDIS_URL: ${REDIS_URL}
-      BROKER_URL: ${BROKER_URL}
+     - REDIS_URL
+     - BROKER_URL
     depends_on:
       - db
       - redis

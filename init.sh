@@ -23,18 +23,11 @@ if [ ! -f /usr/src/app/initialized ]; then
     architect partition --module news_app.models
     # Create a file to indicate that initialization is complete
     touch /usr/src/app/initialized
-    
+
     python manage.py runserver 0.0.0.0:8000
-
-
-
 else
+    python manage.py migrate
     python manage.py runserver 0.0.0.0:8000
 fi
-
-while ! python manage.py showmigrations --plan | grep '\[ \]' >/dev/null; do
-    echo "Waiting for migrations to complete..."
-    sleep 1
-done
 
 exec "$@"
