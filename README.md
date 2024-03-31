@@ -3,7 +3,7 @@ News web api using Django, Django REST, Postgresql and Angular with Database Opt
 # Description
 a web application with Django and Django REST framework as the backend to fetch
 news from the News API, incorporating database optimizations.
-
+<img src="https://github.com/madjid2714/news_api/blob/main/used_techologies.svg">
 - The following architecture shows the components:
 <img src="https://github.com/madjid2714/news_api/blob/main/Dark_news_api.png">
 
